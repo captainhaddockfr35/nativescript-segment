@@ -1,39 +1,79 @@
-# Your Plugin Name
+# NativeScript Segment
 
-Add your plugin badges here. See [nativescript-urlhandler](https://github.com/hypery2k/nativescript-urlhandler) for example.
+Use [Segment](https://segment.com/) with NativeScript
 
-Then describe what's the purpose of your plugin. 
+## Prerequisites / Requirements
 
-In case you develop UI plugin, this is where you can add some screenshots.
-
-## (Optional) Prerequisites / Requirements
-
-Describe the prerequisites that the user need to have installed before using your plugin. See [nativescript-firebase plugin](https://github.com/eddyverbruggen/nativescript-plugin-firebase) for example.
+Create a Segment account : [https://app.segment.com/signup?](https://app.segment.com/signup?), add source Android & iOS and get an API Key
 
 ## Installation
 
-Describe your plugin installation steps. Ideally it would be something like:
+Install the plugin :
 
 ```javascript
-tns plugin add <your-plugin-name>
+tns plugin add nativescript-segment
 ```
 
-## Usage 
+### iOS
 
-Describe any usage specifics for your plugin. Give examples for Android, iOS, Angular if needed. See [nativescript-drop-down](https://www.npmjs.com/package/nativescript-drop-down) for example.
-	
-	```javascript
-    Usage code snippets here
-    ```)
+In your `main.ts`, add (or modify) the AppDelegate : 
 
-## API
+```javascript
+import { platformNativeScriptDynamic } from "nativescript-angular/platform";
 
-Describe your plugin methods and properties here. See [nativescript-feedback](https://github.com/EddyVerbruggen/nativescript-feedback) for example.
+import { AppModule } from "./app/app.module";
+
+import { ios } from "tns-core-modules/application";
+import { isIOS } from "tns-core-modules/ui/page/page";
+import { Segment } from "nativescript-segment";
+
+if(isIOS){
+    class MyDelegate extends UIResponder implements UIApplicationDelegate {
+        public static ObjCProtocols = [UIApplicationDelegate];
     
-| Property | Default | Description |
-| --- | --- | --- |
-| some property | property default value | property description, default values, etc.. |
-| another property | property default value | property description, default values, etc.. |
+        applicationDidFinishLaunchingWithOptions(application: UIApplication, launchOptions: NSDictionary<any, any>): boolean {
+            console.log("applicationWillFinishLaunchingWithOptions: " + launchOptions)
+            Segment.init(<YOUR_API_KEY>);
+            return true;
+        }
+    
+        applicationDidBecomeActive(application: UIApplication): void {
+            console.log("applicationDidBecomeActive: " + application)
+        }
+    }
+    ios.delegate = MyDelegate;
+}
+
+// A traditional NativeScript application starts by initializing global objects,
+// setting up global CSS rules, creating, and navigating to the main page.
+// Angular applications need to take care of their own initialization:
+// modules, components, directives, routes, DI providers.
+// A NativeScript Angular app needs to make both paradigms work together,
+// so we provide a wrapper platform object, platformNativeScriptDynamic,
+// that sets up a NativeScript application and can bootstrap the Angular framework.
+platformNativeScriptDynamic().bootstrapModule(AppModule);
+```
+
+### Android
+In your AppComponent, init the Segment plugin : 
+
+```javascript
+import { Component } from "@angular/core";
+import { Segment } from 'nativescript-segment';
+
+@Component({
+    selector: "ns-app",
+    moduleId: module.id,
+    templateUrl: "./app.component.html"
+})
+export class AppComponent {
+
+    constructor(){
+        Segment.init(<YOUR_API_KEY>);
+    }    
+
+}
+```
     
 ## License
 

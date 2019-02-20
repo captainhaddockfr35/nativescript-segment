@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Segment } from 'nativescript-segment';
+import {Keys} from '../../../Keys';
 
 @Component({
     selector: "ns-app",
@@ -13,7 +14,7 @@ export class AppComponent {
     }
 
     init(){
-        Segment.init("3c1qI1Kp8S0C7ryPRS3c56nTlF9cbM6k");
+        Segment.init(Keys.apiKeyAndroid);
     }
 
     event1(){

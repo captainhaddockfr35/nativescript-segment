@@ -26,3 +26,4 @@ demo/report/stats.json
 !demo-vue/app/app.js
 src/platforms/android/nativescript_segment.aar
 demo/package-lock.json
+Keys.ts

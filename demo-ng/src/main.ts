@@ -2,6 +2,7 @@
 import { platformNativeScriptDynamic } from "nativescript-angular/platform";
 
 import { AppModule } from "./app/app.module";
+import {Keys} from '../../Keys';
 
 import { ios } from "tns-core-modules/application";
 import { isIOS } from "tns-core-modules/ui/page/page";
@@ -13,7 +14,7 @@ if(isIOS){
     
         applicationDidFinishLaunchingWithOptions(application: UIApplication, launchOptions: NSDictionary<any, any>): boolean {
             console.log("applicationWillFinishLaunchingWithOptions: " + launchOptions)
-            Segment.init("Euqy98SgpUDv6WuzMgfrDqSzQm7bKmO7");
+            Segment.init(Keys.apiKeyIOS);
             return true;
         }
     
