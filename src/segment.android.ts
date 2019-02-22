@@ -1,8 +1,7 @@
 import { Common } from './segment.common';
 import * as app from 'tns-core-modules/application';
 let javautilMap = java.util.Map;
-
-
+declare var com: any;
 export class Segment extends Common {
 
     static apiKey: string = "";
@@ -12,7 +11,8 @@ export class Segment extends Common {
         Segment.apiKey = apiKey;
         Segment.context = app.android.context;
         console.log("COUCOU ON PASSE LA");
-        let analytics: com.segment.analytics.Analytics = new com.segment.analytics.Analytics.Builder(this.context, apiKey).trackApplicationLifecycleEvents().recordScreenViews().build();
+        console.log(com.segment.analytics.android.integrations.google.analytics.GoogleAnalyticsIntegration.FACTORY);
+        let analytics: com.segment.analytics.Analytics = new com.segment.analytics.Analytics.Builder(this.context, apiKey).trackApplicationLifecycleEvents().use(com.segment.analytics.android.integrations.google.analytics.GoogleAnalyticsIntegration.FACTORY).recordScreenViews().build();
         com.segment.analytics.Analytics.setSingletonInstance(analytics);
     }
 

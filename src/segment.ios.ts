@@ -1,5 +1,7 @@
 import { Common } from './segment.common';
 
+declare var SEGAnalytics: any, SEGAnalyticsConfiguration: any, SEGGoogleAnalyticsIntegrationFactory: any;
+
 export class Segment extends Common {
     static apiKey: string = "";
 
@@ -8,6 +10,7 @@ export class Segment extends Common {
         Segment.apiKey = key;
         console.log("INIT");
         let configuration: SEGAnalyticsConfiguration = SEGAnalyticsConfiguration.configurationWithWriteKey(key);
+        configuration.use(new SEGGoogleAnalyticsIntegrationFactory());
         SEGAnalytics.debug(true);
         SEGAnalytics.setupWithConfiguration(configuration);
       }
@@ -15,7 +18,6 @@ export class Segment extends Common {
     public static track(): void {
         SEGAnalytics.sharedAnalytics().track("Application Started");
         SEGAnalytics.sharedAnalytics().trackPropertiesOptions("Event Test", Segment.dictionaryOfData({version: "0.0.1", message: "Test"}), null);
-
         console.log("ON TRACK");
     }
 

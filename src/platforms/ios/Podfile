@@ -1,1 +1,2 @@
 pod 'Analytics', '~> 3.0'
+pod 'Segment-GoogleAnalytics'

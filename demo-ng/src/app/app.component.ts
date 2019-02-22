@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Segment } from 'nativescript-segment';
-import {Keys} from '../../../Keys';
+import {Keys} from '../Keys';
 
 @Component({
     selector: "ns-app",
